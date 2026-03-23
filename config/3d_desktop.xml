@@ -13,7 +13,7 @@
           <y>0</y>
           <size>0.85</size>
           <tilt>65</tilt>
-          <jarFile>WayOfTheDragon.jar</jarFile>
+          <jarFile>HelloWorld1Frame.jar</jarFile>
        </javaWindowsApp>
        <javaWindowsApp>
        	  <windowIndex>2</windowIndex>
@@ -45,8 +45,8 @@
           <x>600</x>
           <y>-50</y>
           <size>0.9</size>
-          <jarFile>HelloWorld4Frame.jar</jarFile>
           <jarFile>HelloWorld5Frame.jar</jarFile>
+          <jarFile>WayOfTheDragon.jar</jarFile>
           <jarFile>HelloWorld6Frame.jar</jarFile>
           <jarFile>HelloWorld7Frame.jar</jarFile>
           <jarFile>HelloWorld8Frame.jar</jarFile>

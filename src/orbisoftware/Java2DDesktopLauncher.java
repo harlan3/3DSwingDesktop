@@ -20,17 +20,17 @@ public class Java2DDesktopLauncher extends JFrame {
     private final DesktopSurface desktopSurface;
 
     private final TextField urlField = new TextField();
-    private final Button backButton = new Button("Back");
-    private final Button nextButton = new Button("Next");
-    private final Button fullDefaultButton = new Button("Default");
-    private final Button toggle2d3dButton = new Button("3D");
-    private final Button newTabButton = new Button("New Tab");
-    private final Button layoutButton = new Button("Layout");
-    private final Button exitButton = new Button("Exit");
-    private final Label swingWindowLabel = new Label("");
-    private final Panel browserTabsPanel = new Panel(new FlowLayout(FlowLayout.LEFT, 6, 14));
-    private DesktopIndicatorCanvas desktopIndicatorCanvas = null;
-    private Panel toolbarPanel;
+    private final JButton backButton = new JButton("Back");
+    private final JButton nextButton = new JButton("Next");
+    private final JButton fullDefaultButton = new JButton("Default");
+    private final JButton toggle2d3dButton = new JButton("3D");
+    private final JButton newTabButton = new JButton("New Tab");
+    private final JButton layoutButton = new JButton("Layout");
+    private final JButton exitButton = new JButton("Exit");
+    private final JLabel swingWindowLabel = new JLabel("");
+    private final JPanel browserTabsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 14));
+    private DesktopIndicatorPanel desktopIndicatorPanel = null;
+    private JPanel toolbarPanel;
 
     private static final String DEFAULT_CONFIG_PATH = "config/3d_desktop.xml";
     public static final Color BACKGROUND_COLOR = new Color(79, 128, 235);
@@ -72,7 +72,7 @@ public class Java2DDesktopLauncher extends JFrame {
             }
         }
 
-        Panel toolbar = buildToolbar();
+        JPanel toolbar = buildToolbar();
         add(desktopSurface, BorderLayout.CENTER);
         add(toolbar, BorderLayout.NORTH);
 
@@ -93,21 +93,21 @@ public class Java2DDesktopLauncher extends JFrame {
         });
     }
 
-    private Panel buildToolbar() {
-        Panel toolbar = new Panel(new BorderLayout());
+    private JPanel buildToolbar() {
+        JPanel toolbar = new JPanel(new BorderLayout());
         this.toolbarPanel = toolbar;
         toolbar.setPreferredSize(new Dimension(10, TOOLBAR_HEIGHT));
         toolbar.setBackground(TOOLBAR_COLOR);
 
-        Panel leftControls = new Panel(new FlowLayout(FlowLayout.LEFT, 8, 14));
+        JPanel leftControls = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 14));
         leftControls.setBackground(TOOLBAR_COLOR);
 
         backButton.setPreferredSize(new Dimension(70, 26));
-        urlField.setPreferredSize(new Dimension(320, 26));
+        urlField.setPreferredSize(new Dimension(275, 22));
         nextButton.setPreferredSize(new Dimension(70, 26));
         fullDefaultButton.setPreferredSize(new Dimension(80, 26));
         toggle2d3dButton.setPreferredSize(new Dimension(70, 26));
-        newTabButton.setPreferredSize(new Dimension(80, 26));
+        newTabButton.setPreferredSize(new Dimension(100, 26));
         layoutButton.setPreferredSize(new Dimension(80, 26));
         exitButton.setPreferredSize(new Dimension(70, 26));
         swingWindowLabel.setForeground(Color.WHITE);
@@ -124,13 +124,13 @@ public class Java2DDesktopLauncher extends JFrame {
         leftControls.add(browserTabsPanel);
         leftControls.add(exitButton);
 
-        desktopIndicatorCanvas = new DesktopIndicatorCanvas(config.desktops.size(), desktopSurface.getCurrentDesktop(), this::activateDesktopFromIndicator);
-        Panel centerPanel = new Panel(new BorderLayout());
+        desktopIndicatorPanel = new DesktopIndicatorPanel(config.desktops.size(), desktopSurface.getCurrentDesktop(), this::activateDesktopFromIndicator);
+        JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.setBackground(TOOLBAR_COLOR);
         centerPanel.add(leftControls, BorderLayout.WEST);
-        Panel rightWrap = new Panel(new BorderLayout());
+        JPanel rightWrap = new JPanel(new BorderLayout());
         rightWrap.setBackground(TOOLBAR_COLOR);
-        rightWrap.add(desktopIndicatorCanvas, BorderLayout.EAST);
+        rightWrap.add(desktopIndicatorPanel, BorderLayout.EAST);
 
         toolbar.add(centerPanel, BorderLayout.CENTER);
         toolbar.add(rightWrap, BorderLayout.EAST);
@@ -148,7 +148,6 @@ public class Java2DDesktopLauncher extends JFrame {
 
     private void activateDesktopFromIndicator(int index) {
         desktopSurface.setCurrentDesktop(index);
-        desktopIndicatorCanvas.setSelectedIndex(desktopSurface.getCurrentDesktop());
         syncToolbarUrlFromActiveDesktop();
         applyDesktopShape();
         desktopSurface.requestFocusInWindow();
@@ -225,9 +224,9 @@ public class Java2DDesktopLauncher extends JFrame {
 
         nextButton.setEnabled(hasSwingWindows);
         fullDefaultButton.setEnabled(showFullDefault);
-        fullDefaultButton.setLabel(desktopSurface.isFirstDesktopFullMode() ? "Default" : "Full");
+        fullDefaultButton.setText(desktopSurface.isFirstDesktopFullMode() ? "Default" : "Full");
         toggle2d3dButton.setEnabled(supportsAnimation);
-        toggle2d3dButton.setLabel(desktopSurface.isAnimate3d() ? "2D" : "3D");
+        toggle2d3dButton.setText(desktopSurface.isAnimate3d() ? "2D" : "3D");
         urlField.setEnabled(hasBrowser);
         urlField.setEditable(hasBrowser);
         if (!hasBrowser) urlField.setText("");
@@ -246,7 +245,22 @@ public class Java2DDesktopLauncher extends JFrame {
             }
         }
 
-        if (toolbarPanel != null) { toolbarPanel.validate(); toolbarPanel.repaint(); }
+        if (desktopIndicatorPanel != null) {
+            desktopIndicatorPanel.setSelectedIndex(currentDesktop);
+            desktopIndicatorPanel.revalidate();
+            desktopIndicatorPanel.repaint();
+        }
+        if (toolbarPanel != null) {
+            toolbarPanel.revalidate();
+            toolbarPanel.repaint();
+            SwingUtilities.invokeLater(() -> {
+                if (desktopIndicatorPanel != null) {
+                    desktopIndicatorPanel.revalidate();
+                    desktopIndicatorPanel.repaint();
+                }
+                toolbarPanel.repaint();
+            });
+        }
     }
 
     private DesktopWindow activeBrowserWindow() {
@@ -283,7 +297,7 @@ public class Java2DDesktopLauncher extends JFrame {
         setShape(shape);
     }
 
-    private static final class DesktopIndicatorCanvas extends Canvas {
+    private static final class DesktopIndicatorPanel extends JPanel {
         interface DesktopSelectionListener {
             void onDesktopSelected(int index);
         }
@@ -292,13 +306,15 @@ public class Java2DDesktopLauncher extends JFrame {
         private int selectedIndex;
         private final DesktopSelectionListener listener;
 
-        DesktopIndicatorCanvas(int count, int selectedIndex, DesktopSelectionListener listener) {
+        DesktopIndicatorPanel(int count, int selectedIndex, DesktopSelectionListener listener) {
             this.count = Math.max(0, count);
             this.selectedIndex = Math.max(0, selectedIndex);
             this.listener = listener;
 
+            setOpaque(true);
             setBackground(Java2DDesktopLauncher.TOOLBAR_COLOR);
-            setPreferredSize(new Dimension(Math.max(80, 26 * this.count + 16), TOOLBAR_HEIGHT));
+            setPreferredSize(new Dimension(Math.max(96, 30 * this.count + 20), TOOLBAR_HEIGHT));
+            setMinimumSize(getPreferredSize());
 
             addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
@@ -323,7 +339,7 @@ public class Java2DDesktopLauncher extends JFrame {
         private int hitTest(int x, int y) {
             for (int i = 0; i < count; i++) {
                 Shape s = ellipseAt(i);
-                if (s.contains(x, y)) {
+                if (s.getBounds2D().contains(x - 4, y - 4, 8, 8)) {
                     return i;
                 }
             }
@@ -331,21 +347,20 @@ public class Java2DDesktopLauncher extends JFrame {
         }
 
         private Shape ellipseAt(int index) {
-            int diameter = 14;
+            int diameter = 18;
             int gap = 12;
             int totalWidth = count * diameter + Math.max(0, count - 1) * gap;
-            int startX = Math.max(8, (getWidth() - totalWidth) / 2);
+            int startX = Math.max(10, (getWidth() - totalWidth) / 2);
             int y = Math.max(8, (getHeight() - diameter) / 2);
             int x = startX + index * (diameter + gap);
             return new Ellipse2D.Double(x, y, diameter, diameter);
         }
 
         @Override
-        public void paint(Graphics g) {
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g.create();
             try {
-                g2.setColor(getBackground());
-                g2.fillRect(0, 0, getWidth(), getHeight());
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                 for (int i = 0; i < count; i++) {

@@ -72,6 +72,7 @@ public class DesktopWindow {
                 win32Launcher = new Win32Launcher(command, title);
                 win32Launcher.launch();
                 win32Launcher.positionWindow(bounds);
+                win32Launcher.minimizeWindow();
             }
         }
     }

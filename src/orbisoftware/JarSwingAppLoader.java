@@ -31,6 +31,21 @@ public final class JarSwingAppLoader {
             classLoader = buildClassLoader(jarPath, metadata);
             Object instance = instantiateMain(metadata.mainClassName, classLoader);
             Container contentPane = extractContentPane(instance);
+
+            // Keep the embedded in-process Swing root hidden and non-focusable.
+            // Minimizing it can also iconify the main launcher because it lives in the same JVM.
+            if (instance instanceof Window window) {
+                window.setAutoRequestFocus(false);
+                window.setFocusableWindowState(false);
+                if (window instanceof Frame frame) {
+                    frame.setState(Frame.NORMAL);
+                }
+                if (window instanceof JFrame frame) {
+                    frame.setExtendedState(JFrame.NORMAL);
+                }
+                window.setVisible(false);
+            }
+
             displayName = instance.getClass().getSimpleName();
             livePanel = wrapContent(contentPane, width, height);
             return new SwingJarAppHandle(jarPath.toString(), displayName, livePanel,

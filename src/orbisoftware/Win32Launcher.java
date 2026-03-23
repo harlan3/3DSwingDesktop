@@ -67,6 +67,11 @@ public class Win32Launcher {
     public static void bringToFront(HWND hwnd) {
         User32.INSTANCE.SetForegroundWindow(hwnd);
     }
+    
+    public void minimizeWindow() {
+    	HWND hwnd = getWindowHandle();
+        User32.INSTANCE.ShowWindow(hwnd, User32.SW_MINIMIZE);
+    }
 
     public HWND getWindowHandle() {
         HWND hwnd = cachedWindowHandle;
