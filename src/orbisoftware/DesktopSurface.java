@@ -39,7 +39,6 @@ public class DesktopSurface extends JPanel {
 
     public DesktopSurface(DesktopConfig config, Runnable onStateChanged) {
         this.config = config;
-        //setBackground(Java2DDesktopLauncher.BACKGROUND_COLOR);
         setLayout(null);
         setFocusable(false);
         this.onStateChanged = onStateChanged;

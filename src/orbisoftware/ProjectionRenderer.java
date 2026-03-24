@@ -283,8 +283,6 @@ public final class ProjectionRenderer {
                 interactive ? RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR
                         : RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-
-        
         for (RenderedFace f : visibleFaces) {
             if (f.blackFace) {
                 fillBlackFace(g, f.quad);
