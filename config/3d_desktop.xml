@@ -13,7 +13,7 @@
           <y>0</y>
           <size>0.85</size>
           <tilt>65</tilt>
-          <jarFile>HelloWorld1Frame.jar</jarFile>
+          <jarFile>SwingPaint.jar</jarFile>
        </javaWindowsApp>
        <javaWindowsApp>
        	  <windowIndex>2</windowIndex>
