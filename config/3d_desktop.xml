@@ -24,7 +24,7 @@
           <y>375</y>
           <size>0.85</size>
           <tilt>65</tilt>
-          <jarFile>HelloWorld2Frame.jar</jarFile>
+          <jarFile>SwingCodeEditor.jar</jarFile>
        </javaWindowsApp>
        <javaWindowsApp>
        	  <windowIndex>3</windowIndex>

@@ -90,7 +90,9 @@ public class OffscreenSwingApp {
         try {
             rg.setColor(new Color(245, 245, 245));
             rg.fillRect(0, 0, renderWidth, renderHeight);
-            content.printAll(rg);
+			try {
+				content.printAll(rg);
+			} catch (Exception e) { }
         } finally {
             rg.dispose();
         }
