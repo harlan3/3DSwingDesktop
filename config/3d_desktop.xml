@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <javaDesktop>
-   <numberDesktops>3</numberDesktops>
+   <!-- Use 3 desktops below to include the desktop containing Win32 native applications. -->
+   <!-- Desktop 3 is slow coming up, so we default to only 2 desktops. -->
+   <numberDesktops>2</numberDesktops>
    <desktop1>
        <desktopWindowType>Swing</desktopWindowType>
        <animSupport>yes</animSupport>
