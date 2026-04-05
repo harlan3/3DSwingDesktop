@@ -47,10 +47,10 @@
           <x>600</x>
           <y>-50</y>
           <size>0.9</size>
-          <jarFile>FistOfFury_clip1.jar</jarFile>
-          <jarFile>WayOfTheDragon_clip.jar</jarFile>
-          <jarFile>EnterTheDragon_clip.jar</jarFile>
-          <jarFile>FistOfFury_clip2.jar</jarFile>
+          <jarFile>TestClip.jar</jarFile>
+          <jarFile>TestClip.jar</jarFile>
+          <jarFile>TestClip.jar</jarFile>
+          <jarFile>TestClip.jar</jarFile>
           <jarFile>HelloWorld8Frame.jar</jarFile>
           <jarFile>HelloWorld9Frame.jar</jarFile>
        </javaWindowsApp>
