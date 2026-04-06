@@ -23,7 +23,7 @@
           <width>800</width>
           <height>400</height>
           <x>10</x>
-          <y>375</y>
+          <y>365</y>
           <size>0.85</size>
           <tilt>65</tilt>
           <jarFile>SwingCodeEditor.jar</jarFile>
@@ -31,13 +31,13 @@
        <javaWindowsApp>
        	  <windowIndex>3</windowIndex>
           <projectionShape>windowPlaneLeft</projectionShape>
-          <width>800</width>
-          <height>400</height>
-          <x>10</x>
-          <y>750</y>
-          <size>0.85</size>
+          <width>440</width>
+          <height>620</height>
+          <x>75</x>
+          <y>625</y>
+          <size>0.55</size>
           <tilt>65</tilt>
-          <jarFile>HelloWorld3Frame.jar</jarFile>
+          <jarFile>SwingCalculator.jar</jarFile>
        </javaWindowsApp>
        <javaWindowsApp>
        	  <windowIndex>4</windowIndex>
@@ -51,8 +51,6 @@
           <jarFile>TestClip.jar</jarFile>
           <jarFile>TestClip.jar</jarFile>
           <jarFile>TestClip.jar</jarFile>
-          <jarFile>HelloWorld8Frame.jar</jarFile>
-          <jarFile>HelloWorld9Frame.jar</jarFile>
        </javaWindowsApp>
        <javaWindowsApp>
        	  <windowIndex>5</windowIndex>
