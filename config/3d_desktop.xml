@@ -32,9 +32,9 @@
        	  <windowIndex>3</windowIndex>
           <projectionShape>windowPlaneLeft</projectionShape>
           <width>440</width>
-          <height>620</height>
-          <x>75</x>
-          <y>625</y>
+          <height>705</height>
+          <x>100</x>
+          <y>585</y>
           <size>0.55</size>
           <tilt>65</tilt>
           <jarFile>SwingCalculator.jar</jarFile>
